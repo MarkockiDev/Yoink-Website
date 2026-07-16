@@ -64,10 +64,10 @@
           <p class="lede">Build a polished profile once, then swap it with someone nearby in seconds — phone to phone, no internet, no server.</p>
 
           <div class="cta-row">
-            <button type="button" class="badge-appstore" id="appstore-btn" aria-haspopup="dialog" aria-label="Coming soon to the App Store — see status">
+            <button type="button" class="badge-appstore" id="appstore-btn" aria-label="Download on the App Store">
               <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 3-.76.88-2 1.56-3.05 1.47-.13-1.1.42-2.26 1.09-3.03.76-.87 2.1-1.53 3.07-1.44zM20.9 17.14c-.55 1.27-.82 1.84-1.53 2.96-.99 1.56-2.39 3.5-4.12 3.51-1.54.02-1.94-1-4.03-.99-2.09.01-2.53 1.01-4.07.99-1.73-.02-3.05-1.77-4.04-3.33C-.6 15.9-.9 10.36 1.27 7.42c1.09-1.48 2.8-2.42 4.63-2.42 1.87 0 3.05 1.02 4.6 1.02 1.5 0 2.42-1.02 4.6-1.02 1.6 0 3.29.87 4.5 2.38-3.95 2.16-3.31 7.8.7 9.76z"/></svg>
               <span class="badge-appstore-text">
-                <small>Coming soon to the</small>
+                <small>Download on the</small>
                 <strong>App&nbsp;Store</strong>
               </span>
             </button>
@@ -317,41 +317,12 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* "Coming soon" modal — website popup, not a system alert. */
+    /* App Store button redirect. */
     (function () {
-      var modal = document.getElementById('soon-modal');
       var opener = document.getElementById('appstore-btn');
-      if (!modal || !opener) return;
-      var lastFocus = null;
-
-      function open() {
-        lastFocus = document.activeElement;
-        modal.hidden = false;
-        /* next frame so the entrance transition plays */
-        requestAnimationFrame(function () { modal.classList.add('is-open'); });
-        document.body.style.overflow = 'hidden';
-        var focusTarget = modal.querySelector('.modal-cta');
-        if (focusTarget) focusTarget.focus();
-        document.addEventListener('keydown', onKey);
-      }
-      function close() {
-        modal.classList.remove('is-open');
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', onKey);
-        var done = function () {
-          modal.hidden = true;
-          modal.removeEventListener('transitionend', done);
-        };
-        modal.addEventListener('transitionend', done);
-        /* fallback if transitions are disabled (reduced motion) */
-        setTimeout(function () { if (!modal.classList.contains('is-open')) modal.hidden = true; }, 260);
-        if (lastFocus && lastFocus.focus) lastFocus.focus();
-      }
-      function onKey(e) { if (e.key === 'Escape') close(); }
-
-      opener.addEventListener('click', open);
-      modal.addEventListener('click', function (e) {
-        if (e.target.hasAttribute('data-close')) close();
+      if (!opener) return;
+      opener.addEventListener('click', function () {
+        window.location.href = 'https://apps.apple.com/pl/app/yoink-share-connect/id6787942907';
       });
     })();
   </script>
